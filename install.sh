@@ -3,10 +3,10 @@
 # code, platformio, kicad, arduino, lb, prusaslicer, inkscape, hyperlink desktop: onshape,
 
 # Programs List (for apt)
-programs_apt = ('git' 'code' 'kicad' 'arduino' 'prusaslicer' 'inkscape')
+programs_apt=('git' 'code' 'kicad' 'arduino' 'prusaslicer' 'inkscape')
 
 # Programs List (for flatpak)
-program_fp = ('com.prusa3d.PrusaSlicer')
+program_fp=('com.prusa3d.PrusaSlicer')
 
 ## Requirements
 sudo apt update -y -q > /dev/null
@@ -18,18 +18,20 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 echo "Starting install..."
 
-for i in programs_apt; do
+for i in ${programs_apt[@]}; do
+    package=${programs_apt[i]}
     {
-        sudo apt install -y -q $i > /dev/null
+        sudo apt install -y -q $package > /dev/null
         echo "Installed $i..."
     } || {
-        echo "Failed installing $i"
+        echo "Failed installing $package"
     }
 done
 
-for i in program_fp; do
+for i in ${programs_fp[@]}; do
+package=${programs_fp[i]}
     {
-        flatpak install flathub -y $i > /dev/null
+        flatpak install flathub -y $package > /dev/null
         echo "Installed $i..."
     } || {
         echo "Failed installing $i"
